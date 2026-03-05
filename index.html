@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026학년도 주요대학 수시 입결 검색기</title>
+
+<!-- OG / SNS 공유 태그 -->
+<meta property="og:type"        content="website" />
+<meta property="og:site_name"   content="시대학원 입시연구소" />
+<meta property="og:title"       content="2026학년도 주요대학 수시 입결 검색기" />
+<meta property="og:description" content="고려대·성균관대·서강대·한양대·이화여대·경희대·한국외대·건국대 8개 대학 교과·종합·논술 전형별 70%컷·충원율·경쟁률·수능최저충족률 통합 분석" />
+<meta property="og:image"       content="https://raw.githubusercontent.com/Dasse01/2026-korean-university-admission-results/main/og.png" />
+<meta property="og:image:width"  content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt"   content="2026 수시 입결 검색기 - 시대학원 입시연구소" />
+<meta property="og:url"         content="https://dasse01.github.io/2026-korean-university-admission-results/" />
+<meta property="og:locale"      content="ko_KR" />
+
+<!-- 카카오톡 공유용 추가 태그 -->
+<meta name="description" content="고려대·성균관대·서강대·한양대·이화여대·경희대·한국외대·건국대 8개 대학 수시 입결 검색기 | 시대학원 입시연구소" />
+<meta name="keywords"    content="수시입결,수시지원전략,수시합격전략,일산수시컨설팅,일산정시컨설팅,충원율,70%컷,수능최저충족률" />
+<meta name="author"      content="시대학원 입시연구소" />
+
+<!-- Twitter Card (선택) -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="2026학년도 주요대학 수시 입결 검색기" />
+<meta name="twitter:description" content="8개 대학 교과·종합·논술 전형별 70%컷·충원율·경쟁률 통합 분석 | 시대학원 입시연구소" />
+<meta name="twitter:image"       content="https://raw.githubusercontent.com/Dasse01/2026-korean-university-admission-results/main/og.png" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{
+  --bg:#05080f;--surface:#0c1220;--surface2:#111827;--surface3:#0a1628;
+  --border:#1e2d47;--border2:#253550;--navy:#0f1f3d;
+  --blue:#1a56db;--blue2:#2563eb;--blue3:#1d4ed8;
+  --teal:#0ea5a0;--gold:#d4a017;--gold2:#f0c040;
+  --red2:#ef4444;--green:#22c55e;--white:#f0f4ff;
+  --gray1:#8ba3c7;--gray2:#4f6a8f;--gray3:#2a3f5f;
+  --text:#cdd8f0;--text2:#8ba3c7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(26,86,219,.07) 0%,transparent 70%);border-radius:50%;pointer-events:none;animation:fl1 18s ease-in-out infinite alternate;}
+body::after{content:'';position:fixed;bottom:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(212,160,23,.05) 0%,transparent 70%);border-radius:50%;pointer-events:none;animation:fl2 22s ease-in-out infinite alternate;}
+@keyframes fl1{from{transform:translate(0,0)}to{transform:translate(80px,60px)}}
+@keyframes fl2{from{transform:translate(0,0)}to{transform:translate(-60px,-80px)}}
+
+/* ── HEADER ── */
+.hdr{background:rgba(5,8,15,.96);padding:20px 32px 16px;position:sticky;top:0;z-index:300;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.hdr-in{max-width:1360px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.logo h1{font-size:19px;font-weight:900;color:var(--white);letter-spacing:-.5px;}
+.logo h1 span{color:var(--gold2);}
+.logo p{font-size:10px;color:var(--gray2);margin-top:2px;letter-spacing:1.5px;}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bdg{font-size:10px;font-weight:700;padding:3px 10px;border-radius:2px;letter-spacing:.4px;}
+.bdg-b{background:rgba(26,86,219,.2);border:1px solid rgba(37,99,235,.5);color:#93c5fd;}
+.bdg-g{background:rgba(212,160,23,.15);border:1px solid rgba(240,192,64,.4);color:var(--gold2);}
+.bdg-t{background:rgba(14,165,160,.15);border:1px solid rgba(14,165,160,.4);color:#5eead4;}
+.hdr-btns{display:flex;gap:6px;}
+.hbtn{background:var(--surface);border:1px solid var(--border2);color:var(--gray1);padding:6px 14px;font-size:11px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;}
+.hbtn:hover{border-color:var(--blue2);color:var(--white);}
+.hbtn.gold{border-color:rgba(240,192,64,.4);color:var(--gold2);}
+.hbtn.gold:hover{background:rgba(240,192,64,.1);}
+
+/* ── CONTAINER ── */
+.wrap{max-width:1360px;margin:0 auto;padding:24px 20px 80px;}
+
+/* ══ 사용 매뉴얼 ══ */
+.manual-wrap{background:var(--surface);border:1px solid var(--border);margin-bottom:20px;overflow:hidden;}
+.manual-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;cursor:pointer;user-select:none;transition:background .2s;}
+.manual-hdr:hover{background:rgba(37,99,235,.06);}
+.manual-hdr-left{display:flex;align-items:center;gap:10px;}
+.manual-hdr-left .ic{font-size:16px;}
+.manual-hdr-left h3{font-size:13px;font-weight:700;color:var(--white);}
+.manual-hdr-left .sub{font-size:11px;color:var(--gray2);margin-left:4px;}
+.manual-toggle{font-size:11px;color:var(--gray2);display:flex;align-items:center;gap:6px;transition:color .2s;}
+.manual-toggle span{transition:transform .3s;}
+.manual-toggle.open span{transform:rotate(180deg);}
+.manual-body{display:none;padding:0 22px 22px;border-top:1px solid var(--border);}
+.manual-body.open{display:block;}
+.manual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;}
+@media(max-width:900px){.manual-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:580px){.manual-grid{grid-template-columns:1fr;}}
+.man-card{background:var(--surface2);border:1px solid var(--border);padding:16px;border-left:3px solid;}
+.man-card:nth-child(1){border-left-color:var(--blue2);}
+.man-card:nth-child(2){border-left-color:var(--gold2);}
+.man-card:nth-child(3){border-left-color:var(--teal);}
+.man-card:nth-child(4){border-left-color:#a855f7;}
+.man-card:nth-child(5){border-left-color:var(--green);}
+.man-card:nth-child(6){border-left-color:var(--red2);}
+.man-card .step{font-size:9px;font-weight:700;letter-spacing:1.5px;margin-bottom:6px;opacity:.7;}
+.man-card h4{font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;}
+.man-card p{font-size:12px;color:var(--text2);line-height:1.7;}
+.man-card .tip{display:inline-block;margin-top:8px;font-size:10px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);color:#93c5fd;padding:2px 8px;}
+.manual-bottom{margin-top:16px;background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.8;}
+.manual-bottom strong{color:var(--gold2);}
+
+/* ══ 즐겨찾기 바 ══ */
+.fav-bar{background:var(--surface);border:1px solid var(--border);padding:14px 20px;margin-bottom:16px;display:none;}
+.fav-bar.visible{display:block;}
+.fav-bar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.fav-bar-top h3{font-size:12px;font-weight:700;color:var(--gold2);display:flex;align-items:center;gap:7px;}
+.fav-bar-top .fav-count{font-size:10px;color:var(--gray2);}
+.fav-actions{display:flex;gap:6px;}
+.fav-btn-sm{background:transparent;border:1px solid var(--border2);color:var(--gray1);padding:5px 12px;font-size:11px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;}
+.fav-btn-sm:hover{border-color:var(--gold2);color:var(--gold2);}
+.fav-btn-sm.primary{border-color:rgba(37,99,235,.5);color:#93c5fd;}
+.fav-btn-sm.primary:hover{background:rgba(37,99,235,.15);}
+.fav-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.fav-chip{display:flex;align-items:center;gap:6px;background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.25);padding:5px 10px;font-size:11px;color:var(--text);}
+.fav-chip .fav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.fav-chip .fav-name{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fav-chip .fav-rm{cursor:pointer;color:var(--gray2);font-size:13px;transition:color .15s;margin-left:2px;}
+.fav-chip .fav-rm:hover{color:var(--red2);}
+.fav-empty{font-size:12px;color:var(--gray2);padding:4px 0;}
+.fav-limit{font-size:11px;color:var(--red2);padding:4px 0;}
+
+/* ══ 차트 모달 ══ */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:900;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-backdrop.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border2);width:100%;max-width:960px;max-height:90vh;overflow-y:auto;position:relative;}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue2),var(--gold2));}
+.modal-hdr{padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;}
+.modal-hdr h2{font-size:16px;font-weight:900;color:var(--white);}
+.modal-close{background:transparent;border:1px solid var(--border2);color:var(--gray1);width:32px;height:32px;cursor:pointer;font-size:18px;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{border-color:var(--red2);color:var(--red2);}
+.modal-tabs{display:flex;gap:0;padding:16px 24px 0;border-bottom:1px solid var(--border);}
+.m-tab{padding:8px 18px;font-size:12px;font-weight:700;color:var(--gray2);cursor:pointer;border-bottom:2px solid transparent;font-family:'Noto Sans KR',sans-serif;transition:all .2s;}
+.m-tab.active{color:var(--gold2);border-bottom-color:var(--gold2);}
+.modal-body{padding:20px 24px 24px;}
+.chart-section{display:none;}
+.chart-section.active{display:block;}
+.chart-wrap{position:relative;height:340px;}
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.cl-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);}
+.cl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.chart-note{font-size:11px;color:var(--gray2);margin-top:12px;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--border2);}
+.export-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.exp-btn{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:10px 18px;font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;}
+.exp-btn:hover{border-color:var(--blue2);color:var(--white);}
+.exp-btn.gold-btn{border-color:rgba(240,192,64,.4);color:var(--gold2);}
+.exp-btn.gold-btn:hover{background:rgba(240,192,64,.08);}
+.exp-btn.red-btn{border-color:rgba(239,68,68,.4);color:#fca5a5;}
+.exp-btn.red-btn:hover{background:rgba(239,68,68,.08);}
+
+/* ══ 인사이트 ══ */
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+@media(max-width:900px){.insights{grid-template-columns:1fr;}}
+.ins-card{background:var(--surface);border:1px solid var(--border);padding:12px 16px;border-left:3px solid;font-size:11px;color:var(--text2);line-height:1.7;}
+.ins-card strong{color:var(--white);display:block;font-size:12px;margin-bottom:2px;}
+.ins-card:nth-child(1){border-left-color:var(--blue2);}
+.ins-card:nth-child(2){border-left-color:var(--gold2);}
+.ins-card:nth-child(3){border-left-color:var(--teal);}
+
+/* ══ 필터 패널 ══ */
+.fp{background:var(--surface);border:1px solid var(--border);padding:20px 24px 18px;margin-bottom:16px;position:relative;overflow:visible;}
+.fp::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue2),var(--teal),var(--gold2));}
+.fp-title{font-size:11px;font-weight:700;color:var(--gray1);letter-spacing:2px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.fp-row{display:grid;grid-template-columns:repeat(4,1fr) 1fr 1fr;gap:10px;align-items:end;}
+.fp-row2{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;gap:10px;align-items:end;margin-top:10px;}
+@media(max-width:1100px){.fp-row{grid-template-columns:1fr 1fr 1fr;} .fp-row2{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:640px){.fp-row,.fp-row2{grid-template-columns:1fr 1fr;}}
+.fg label{display:block;font-size:10px;font-weight:700;color:var(--gray2);letter-spacing:.8px;margin-bottom:5px;text-transform:uppercase;}
+.fg input{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:8px 11px;font-size:12px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border-color .2s;}
+.fg input:focus{border-color:var(--blue2);}
+.btn-s{background:var(--blue2);border:none;color:#fff;padding:9px 0;font-size:12px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100%;transition:background .2s;}
+.btn-s:hover{background:var(--blue3);}
+.btn-r{background:transparent;border:1px solid var(--border2);color:var(--gray1);padding:9px 0;font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100%;transition:all .2s;}
+.btn-r:hover{border-color:var(--gray1);color:var(--white);}
+
+/* xf dropdown */
+.xfw{position:relative;}
+.xft{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:8px 10px;font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;text-align:left;transition:border-color .2s;display:flex;align-items:center;justify-content:space-between;gap:5px;}
+.xft:hover,.xft.open{border-color:var(--blue2);}
+.xft .xa{font-size:8px;color:var(--gray2);flex-shrink:0;transition:transform .2s;}
+.xft.open .xa{transform:rotate(180deg);}
+.xft .xb{background:var(--blue2);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:8px;flex-shrink:0;}
+.xfp{position:absolute;top:calc(100% + 3px);left:0;min-width:200px;width:max-content;max-width:300px;background:var(--surface3);border:1px solid var(--border2);z-index:999;box-shadow:0 8px 32px rgba(0,0,0,.5);display:none;flex-direction:column;}
+.xfp.open{display:flex;}
+.xfsb{padding:8px 8px 5px;border-bottom:1px solid var(--border);}
+.xfsb input{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:5px 9px;font-size:11px;outline:none;font-family:'Noto Sans KR',sans-serif;}
+.xfsb input:focus{border-color:var(--blue2);}
+.xfc{display:flex;border-bottom:1px solid var(--border);}
+.xfc button{flex:1;background:transparent;border:none;color:var(--gray1);font-size:10px;font-family:'Noto Sans KR',sans-serif;padding:6px 4px;cursor:pointer;transition:background .15s,color .15s;font-weight:600;}
+.xfc button:hover{background:rgba(37,99,235,.15);color:var(--white);}
+.xfc button:first-child{border-right:1px solid var(--border);}
+.xfl{max-height:180px;overflow-y:auto;padding:3px 0;}
+.xfl::-webkit-scrollbar{width:3px;}
+.xfl::-webkit-scrollbar-thumb{background:var(--border2);}
+.xfi{display:flex;align-items:center;gap:8px;padding:6px 10px;cursor:pointer;transition:background .1s;font-size:12px;color:var(--text);user-select:none;}
+.xfi:hover{background:rgba(37,99,235,.1);}
+.xfi.checked{color:var(--white);}
+.xfck{width:13px;height:13px;border:1.5px solid var(--border2);background:var(--surface2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.xfi.checked .xfck{background:var(--blue2);border-color:var(--blue2);}
+.xfck::after{content:'✓';font-size:8px;color:#fff;display:none;}
+.xfi.checked .xfck::after{display:block;}
+.xfd{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.xfa{border-top:1px solid var(--border);padding:6px 8px;}
+.xfa button{width:100%;background:var(--blue2);border:none;color:#fff;padding:6px;font-size:11px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;}
+.xfa button:hover{background:var(--blue3);}
+
+/* 활성 태그 */
+.aft{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;min-height:24px;align-items:center;}
+.aft-lbl{font-size:10px;color:var(--gray2);margin-right:3px;}
+.atag{display:inline-flex;align-items:center;gap:4px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.35);color:#93c5fd;font-size:10px;padding:3px 9px;}
+.atag .ax{cursor:pointer;color:var(--gray2);font-size:11px;transition:color .15s;}
+.atag .ax:hover{color:var(--red2);}
+.aclr{font-size:10px;color:var(--gray2);cursor:pointer;text-decoration:underline;padding:3px 5px;}
+.aclr:hover{color:var(--white);}
+
+/* 통계 */
+.sb{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+@media(max-width:768px){.sb{grid-template-columns:repeat(2,1fr);}}
+.sc{background:var(--surface);border:1px solid var(--border);padding:12px 16px;position:relative;overflow:hidden;}
+.sc::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;}
+.sc:nth-child(1)::before{background:var(--blue2);}
+.sc:nth-child(2)::before{background:var(--gold2);}
+.sc:nth-child(3)::before{background:var(--teal);}
+.sc:nth-child(4)::before{background:var(--red2);}
+.sn{font-size:24px;font-weight:900;color:var(--white);font-family:'DM Mono',monospace;line-height:1;}
+.sl{font-size:10px;color:var(--gray2);margin-top:4px;}
+
+/* 결과 헤더 */
+.rh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+.rc{font-size:12px;color:var(--gray2);}
+.rc strong{color:var(--gold2);font-family:'DM Mono',monospace;}
+.stabs{display:flex;gap:3px;}
+.stab{font-size:10px;padding:5px 11px;border:1px solid var(--border2);background:transparent;color:var(--gray2);cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;}
+.stab.active,.stab:hover{background:var(--navy);color:var(--white);border-color:var(--blue2);}
+
+/* 테이블 */
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;min-width:960px;}
+thead tr{background:var(--navy);border-bottom:1px solid var(--border2);}
+th{padding:11px 13px;font-size:10px;font-weight:700;color:var(--gray1);letter-spacing:.7px;text-transform:uppercase;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s;}
+th:hover{color:var(--white);}
+th.sorted{color:var(--gold2);}
+tbody tr{border-bottom:1px solid rgba(30,45,71,.45);transition:background .12s;}
+tbody tr:hover{background:rgba(26,86,219,.05);}
+td{padding:10px 13px;font-size:12px;white-space:nowrap;}
+.td-univ{font-weight:700;color:var(--white);}
+.ubdg{display:inline-block;font-size:8px;padding:2px 5px;border-radius:2px;margin-right:5px;font-weight:700;vertical-align:middle;}
+.td-dept{color:var(--text);}
+.dcol{display:block;font-size:9px;color:var(--gray2);margin-top:1px;}
+.ttag{font-size:9px;padding:2px 7px;border-radius:2px;font-weight:700;}
+.tnum{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;text-align:right;}
+.gbar{display:flex;align-items:center;gap:7px;}
+.btr{width:55px;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.bfill{height:100%;border-radius:2px;}
+
+/* 즐겨찾기 버튼 (테이블 내) */
+.fav-ico{background:transparent;border:none;cursor:pointer;font-size:15px;padding:2px 4px;transition:transform .2s;line-height:1;}
+.fav-ico:hover{transform:scale(1.3);}
+
+.g1{color:#ff4757;}.g1x{color:#ff6b6b;}.g1y{color:#ffa502;}
+.g2{color:#f0c040;}.g2x{color:#a8d8a8;}.g3{color:#74b9ff;}
+.g3x{color:#81ecec;}.g4{color:#b2bec3;}
+.fh{color:#ff4757;}.fm{color:#ffa502;}.fl{color:#74b9ff;}
+.t교과{background:rgba(26,86,219,.22);color:#93c5fd;border:1px solid rgba(37,99,235,.28);}
+.t종합{background:rgba(14,165,160,.18);color:#5eead4;border:1px solid rgba(14,165,160,.28);}
+.t논술{background:rgba(212,160,23,.18);color:var(--gold2);border:1px solid rgba(240,192,64,.28);}
+.u고려대{background:rgba(139,0,0,.4);color:#fca5a5;}
+.u성균관대{background:rgba(14,116,144,.4);color:#a5f3fc;}
+.u서강대{background:rgba(37,99,235,.4);color:#bfdbfe;}
+.u한양대{background:rgba(234,88,12,.3);color:#fed7aa;}
+.u이화여대{background:rgba(147,51,234,.3);color:#d8b4fe;}
+.u경희대{background:rgba(5,150,105,.3);color:#a7f3d0;}
+.u한국외대{background:rgba(180,83,9,.3);color:#fde68a;}
+.u건국대{background:rgba(75,85,99,.4);color:#d1d5db;}
+
+.es{text-align:center;padding:60px 20px;}
+.ei{font-size:40px;margin-bottom:12px;opacity:.4;}
+.et{font-size:13px;color:var(--gray2);}
+
+.pgn{display:flex;justify-content:center;gap:4px;margin-top:16px;flex-wrap:wrap;}
+.pb{width:32px;height:32px;border:1px solid var(--border2);background:transparent;color:var(--gray1);font-size:12px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.pb:hover{border-color:var(--blue2);color:var(--white);}
+.pb.active{background:var(--blue2);border-color:var(--blue2);color:white;}
+
+mark{background:rgba(240,192,64,.22);color:var(--gold2);padding:0 2px;}
+.ta{font-size:9px;margin-left:2px;}
+.tu{color:var(--teal);}.td2{color:var(--red2);}.ts{color:var(--gray2);}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+/* PDF/이미지 저장 영역 (숨김) */
+#export-target{position:fixed;left:-9999px;top:0;width:1200px;background:var(--bg);padding:32px;}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="logo">
+      <h1>2026 수시 입결 <span>검색기</span></h1>
+      <p>MAJOR UNIVERSITY ADMISSIONS DATA 2026</p>
+    </div>
+    <div class="hdr-right">
+      <span class="bdg bdg-b">8개 대학</span>
+      <span class="bdg bdg-g">교과·종합·논술</span>
+      <span class="bdg bdg-t">실제 합격 데이터</span>
+      <div class="hdr-btns">
+        <button class="hbtn gold" onclick="openChartModal()">📊 즐겨찾기 차트 비교</button>
+        <button class="hbtn" onclick="exportImage()">🖼 이미지 저장</button>
+        <button class="hbtn" onclick="exportPDF()">📄 PDF 저장</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ═══ 사용 매뉴얼 ═══ -->
+<div class="manual-wrap">
+  <div class="manual-hdr" onclick="toggleManual()">
+    <div class="manual-hdr-left">
+      <span class="ic">📖</span>
+      <h3>초보자 사용 가이드</h3>
+      <span class="sub">— 처음 사용하신다면 꼭 읽어보세요</span>
+    </div>
+    <div class="manual-toggle" id="manual-toggle">
+      <span style="font-size:11px;">펼치기</span>
+      <span>▼</span>
+    </div>
+  </div>
+  <div class="manual-body" id="manual-body">
+    <div class="manual-grid">
+      <div class="man-card">
+        <div class="step" style="color:var(--blue2);">STEP 01 — 필터 선택</div>
+        <h4>🔍 대학·전형·계열 선택</h4>
+        <p>상단 드롭다운을 클릭하면 엑셀처럼 체크박스 목록이 펼쳐집니다. 원하는 항목을 여러 개 체크한 뒤 <b>적용</b> 버튼을 누르세요. <b>전체 선택 / 전체 해제</b>로 빠르게 조작할 수 있습니다.</p>
+        <span class="tip">💡 여러 대학 동시에 선택 가능</span>
+      </div>
+      <div class="man-card">
+        <div class="step" style="color:var(--gold2);">STEP 02 — 등급 범위 입력</div>
+        <h4>📐 내 등급으로 필터링</h4>
+        <p>아래 <b>70%컷 최소 / 최대</b> 칸에 본인 내신 등급 범위를 입력하세요. 예: 1.2 ~ 1.6 입력 시 해당 구간 학과만 표시됩니다. 등급이 낮을수록(1.0이 최상) 우수한 학과입니다.</p>
+        <span class="tip">💡 1.0 ~ 1.5 = 의대·SKY 상위</span>
+      </div>
+      <div class="man-card">
+        <div class="step" style="color:var(--teal);">STEP 03 — 데이터 해석</div>
+        <h4>📊 70%컷이란?</h4>
+        <p>합격자 100명 중 70번째 학생의 등급입니다. 즉 이 등급이면 <b>70% 확률로 합격</b>을 기대할 수 있습니다. <b>50%컷</b>은 중간값입니다. 등급 숫자 옆 ▼(완화)/▲(강화) 화살표로 전년 대비 변화를 확인하세요.</p>
+        <span class="tip">💡 ▼ = 합격선 낮아짐 = 기회!</span>
+      </div>
+      <div class="man-card">
+        <div class="step" style="color:#a855f7;">STEP 04 — 충원율 활용</div>
+        <h4>🔄 충원율로 상향 지원</h4>
+        <p><b>충원율</b>은 추가 합격(추합)이 얼마나 발생했는지를 나타냅니다. 200%이면 정원의 2배가 추가 합격했다는 의미입니다. 충원율이 높을수록 <b>상향 지원 시 기회</b>가 많습니다.</p>
+        <span class="tip">💡 300% 이상 = 적극 상향 고려</span>
+      </div>
+      <div class="man-card">
+        <div class="step" style="color:var(--green);">STEP 05 — 즐겨찾기</div>
+        <h4>⭐ 관심 학과 즐겨찾기</h4>
+        <p>각 행 오른쪽 ☆ 버튼을 클릭하면 즐겨찾기에 추가됩니다. 최대 <b>6개</b>까지 선택 가능하며, 상단 <b>📊 즐겨찾기 차트 비교</b> 버튼으로 한눈에 비교할 수 있습니다.</p>
+        <span class="tip">💡 최대 6개 학과 동시 비교</span>
+      </div>
+      <div class="man-card">
+        <div class="step" style="color:var(--red2);">STEP 06 — 저장 및 공유</div>
+        <h4>💾 이미지·PDF 저장</h4>
+        <p>상단 <b>🖼 이미지 저장</b> 버튼으로 현재 화면을 고해상도 PNG로, <b>📄 PDF 저장</b>으로 인쇄용 파일을 만들 수 있습니다. 비교 차트도 별도로 저장됩니다.</p>
+        <span class="tip">💡 차트 모달에서도 저장 가능</span>
+      </div>
+    </div>
+    <div class="manual-bottom">
+      <strong>📌 수능최저 충족률</strong>이란? 지원자 중 수능 최저 기준을 실제로 충족한 비율입니다. 고려대는 약 70%이지만 서강대는 75~80%로 높습니다. 충족률이 낮을수록 실질 경쟁률도 낮아져 합격 가능성이 올라갑니다. &nbsp;|&nbsp;
+      <strong>💬 전형 구분</strong>: <span style="color:#93c5fd;">교과</span> = 내신 위주 / <span style="color:#5eead4;">종합</span> = 서류·면접 / <span style="color:var(--gold2);">논술</span> = 논술 시험 위주
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 즐겨찾기 바 ═══ -->
+<div class="fav-bar" id="fav-bar">
+  <div class="fav-bar-top">
+    <h3>⭐ 즐겨찾기 <span class="fav-count" id="fav-count">(0/6)</span></h3>
+    <div class="fav-actions">
+      <button class="fav-btn-sm primary" onclick="openChartModal()">📊 차트로 비교</button>
+      <button class="fav-btn-sm" onclick="clearFavs()">전체 삭제</button>
+    </div>
+  </div>
+  <div class="fav-chips" id="fav-chips"></div>
+</div>
+
+<!-- ═══ 인사이트 ═══ -->
+<div class="insights">
+  <div class="ins-card"><strong>🔑 수능최저 충족률이 실질 당락 결정</strong>고려대 40.4% vs 한국외대 93.7% — 충족률 차이가 실질 경쟁률을 크게 좌우합니다.</div>
+  <div class="ins-card"><strong>📈 충원율 높은 학과 = 상향지원 기회</strong>성균관대 반도체시스템공 760%, 서강대 사회과학부 789%로 추합 기회가 많습니다.</div>
+  <div class="ins-card"><strong>📐 ⭐ 클릭 → 최대 6개 즐겨찾기 → 차트 비교</strong>관심 학과를 저장하고 등급·충원율·경쟁률을 시각적으로 비교하세요.</div>
+</div>
+
+<!-- ═══ 필터 패널 ═══ -->
+<div class="fp">
+  <div class="fp-title">🔍 검색 필터 <span style="font-size:9px;color:var(--gray2);font-weight:400;letter-spacing:0;text-transform:none;">— 클릭으로 다중 선택</span></div>
+  <div class="fp-row">
+    <div class="fg">
+      <label>대학교</label>
+      <div class="xfw" id="xfw-univ">
+        <button class="xft" id="xft-univ" onclick="toggleXF('univ')"><span id="xlbl-univ">전체 대학</span><span class="xa">▼</span></button>
+        <div class="xfp" id="xfp-univ">
+          <div class="xfsb"><input type="text" placeholder="대학 검색..." oninput="xfFilter('univ',this.value)" id="xfi-univ"></div>
+          <div class="xfc"><button onclick="xfAll('univ')">전체 선택</button><button onclick="xfClear('univ')">전체 해제</button></div>
+          <div class="xfl" id="xfl-univ"></div>
+          <div class="xfa"><button onclick="xfApply('univ')">적용</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <label>전형 구분</label>
+      <div class="xfw" id="xfw-type">
+        <button class="xft" id="xft-type" onclick="toggleXF('type')"><span id="xlbl-type">전체 전형</span><span class="xa">▼</span></button>
+        <div class="xfp" id="xfp-type">
+          <div class="xfc"><button onclick="xfAll('type')">전체 선택</button><button onclick="xfClear('type')">전체 해제</button></div>
+          <div class="xfl" id="xfl-type"></div>
+          <div class="xfa"><button onclick="xfApply('type')">적용</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <label>계열</label>
+      <div class="xfw" id="xfw-series">
+        <button class="xft" id="xft-series" onclick="toggleXF('series')"><span id="xlbl-series">전체 계열</span><span class="xa">▼</span></button>
+        <div class="xfp" id="xfp-series">
+          <div class="xfc"><button onclick="xfAll('series')">전체 선택</button><button onclick="xfClear('series')">전체 해제</button></div>
+          <div class="xfl" id="xfl-series"></div>
+          <div class="xfa"><button onclick="xfApply('series')">적용</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <label>학과명 검색</label>
+      <input type="text" id="inp-kw" placeholder="예: 컴퓨터, 경영, 의과...">
+    </div>
+    <div class="fg"><label>&nbsp;</label><button class="btn-s" onclick="doSearch()">🔍 검색</button></div>
+    <div class="fg"><label>&nbsp;</label><button class="btn-r" onclick="resetAll()">↺ 초기화</button></div>
+  </div>
+  <div class="fp-row2">
+    <div class="fg"><label>70%컷 최소</label><input type="number" id="inp-gmin" placeholder="예: 1.0" step="0.01" min="1" max="5"></div>
+    <div class="fg"><label>70%컷 최대</label><input type="number" id="inp-gmax" placeholder="예: 2.0" step="0.01" min="1" max="5"></div>
+    <div class="fg"><label>충원율 최소 (%)</label><input type="number" id="inp-fmin" placeholder="예: 200" step="10" min="0"></div>
+    <div class="fg"><label>경쟁률 최대 ('26)</label><input type="number" id="inp-rmax" placeholder="예: 15" step="0.5" min="0"></div>
+    <div class="fg"><label>&nbsp;</label><button class="btn-s" onclick="doSearch()">검색하기</button></div>
+    <div class="fg"><label>&nbsp;</label><button class="btn-r" onclick="resetAll()">전체 초기화</button></div>
+  </div>
+</div>
+
+<!-- 활성 태그 -->
+<div class="aft" id="aft"></div>
+
+<!-- 통계 -->
+<div class="sb">
+  <div class="sc"><div class="sn" id="stn">—</div><div class="sl">검색된 학과 수</div></div>
+  <div class="sc"><div class="sn" id="stg">—</div><div class="sl">평균 70%컷 등급</div></div>
+  <div class="sc"><div class="sn" id="stf">—</div><div class="sl">평균 충원율</div></div>
+  <div class="sc"><div class="sn" id="str">—</div><div class="sl">평균 경쟁률('26)</div></div>
+</div>
+
+<!-- 결과 -->
+<div class="rh">
+  <div class="rc">총 <strong id="cnt">0</strong>개 학과 <span style="font-size:10px;color:var(--gray2);margin-left:8px;">⭐ 클릭으로 즐겨찾기 추가 (최대 6개)</span></div>
+  <div class="stabs">
+    <button class="stab active" id="st-univ" onclick="setSort('univ')">대학순</button>
+    <button class="stab" id="st-grade" onclick="setSort('grade')">등급순</button>
+    <button class="stab" id="st-fill" onclick="setSort('fill')">충원율순</button>
+    <button class="stab" id="st-rate" onclick="setSort('rate')">경쟁률순</button>
+  </div>
+</div>
+<div class="tw" id="main-table">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:28px;"></th>
+        <th onclick="setSort('univ')">대학</th>
+        <th onclick="setSort('dept')">모집단위</th>
+        <th>전형</th><th>계열</th>
+        <th onclick="setSort('rate25')">경쟁률 '25</th>
+        <th onclick="setSort('rate')">경쟁률 '26</th>
+        <th onclick="setSort('grade25')">70%컷 '25</th>
+        <th onclick="setSort('grade')" class="sorted">70%컷 '26 ▲</th>
+        <th onclick="setSort('fill')">충원율 '26</th>
+        <th>수능최저충족률</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+<div class="pgn" id="pg"></div>
+
+</div><!-- /wrap -->
+
+<!-- ═══ 차트 모달 ═══ -->
+<div class="modal-backdrop" id="chart-modal" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-hdr">
+      <h2>📊 즐겨찾기 비교 차트</h2>
+      <button class="modal-close" onclick="closeChartModal()">✕</button>
+    </div>
+    <div class="modal-tabs">
+      <div class="m-tab active" onclick="switchTab(0)">📐 70%컷 등급</div>
+      <div class="m-tab" onclick="switchTab(1)">🔄 충원율</div>
+      <div class="m-tab" onclick="switchTab(2)">⚔️ 경쟁률</div>
+      <div class="m-tab" onclick="switchTab(3)">📋 종합 레이더</div>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="chart-section active" id="cs0">
+        <div class="chart-wrap"><canvas id="chart-grade"></canvas></div>
+        <div class="chart-legend" id="cl0"></div>
+        <p class="chart-note">※ 등급은 낮을수록 우수합니다. 빨간색이 가장 높은 합격선을 의미합니다. '25→'26 변화를 함께 표시합니다.</p>
+      </div>
+      <div class="chart-section" id="cs1">
+        <div class="chart-wrap"><canvas id="chart-fill"></canvas></div>
+        <div class="chart-legend" id="cl1"></div>
+        <p class="chart-note">※ 충원율이 높을수록 추가합격 기회가 많습니다. 300% 이상이면 적극적 상향지원을 고려하세요.</p>
+      </div>
+      <div class="chart-section" id="cs2">
+        <div class="chart-wrap"><canvas id="chart-rate"></canvas></div>
+        <div class="chart-legend" id="cl2"></div>
+        <p class="chart-note">※ '25 vs '26 경쟁률 비교입니다. 경쟁률이 낮아진 학과일수록 실질 합격 가능성이 높아집니다.</p>
+      </div>
+      <div class="chart-section" id="cs3">
+        <div class="chart-wrap" style="height:380px;"><canvas id="chart-radar"></canvas></div>
+        <div class="chart-legend" id="cl3"></div>
+        <p class="chart-note">※ 레이더 차트: 각 항목을 0~100으로 정규화한 종합 지표입니다. 면적이 넓을수록 전반적으로 양호한 지표를 가진 학과입니다.</p>
+      </div>
+      <div class="export-row">
+        <button class="exp-btn gold-btn" onclick="exportChartImage()">🖼 차트 이미지 저장 (PNG)</button>
+        <button class="exp-btn red-btn" onclick="exportChartPDF()">📄 차트 PDF 저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 숨김 내보내기 영역 ═══ -->
+<div id="export-target"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// 데이터베이스
+// ═══════════════════════════════════════════════════════
+const DB = [
+  {univ:"고려대",dept:"정치외교학과",college:"인문",type:"교과",series:"인문",rate25:5.8,rate26:4.6,g25:1.39,g26:1.22,fill26:216.7,minRate:70.0},
+  {univ:"고려대",dept:"자유전공학부",college:"인문",type:"교과",series:"인문",rate25:7.8,rate26:5.6,g25:1.39,g26:1.25,fill26:177.8,minRate:70.0},
+  {univ:"고려대",dept:"미디어학부",college:"인문",type:"교과",series:"인문",rate25:5.3,rate26:4.1,g25:1.31,g26:1.27,fill26:60.0,minRate:70.0},
+  {univ:"고려대",dept:"행정학과",college:"인문",type:"교과",series:"인문",rate25:5.8,rate26:3.2,g25:1.35,g26:1.29,fill26:108.3,minRate:70.0},
+  {univ:"고려대",dept:"경영대학",college:"인문",type:"교과",series:"인문",rate25:6.1,rate26:3.3,g25:1.36,g26:1.31,fill26:182.7,minRate:70.0},
+  {univ:"고려대",dept:"사회학과",college:"인문",type:"교과",series:"인문",rate25:5.2,rate26:4.4,g25:1.47,g26:1.32,fill26:83.3,minRate:70.0},
+  {univ:"고려대",dept:"경제학과",college:"인문",type:"교과",series:"인문",rate25:6.1,rate26:6.7,g25:1.52,g26:1.35,fill26:176.2,minRate:70.0},
+  {univ:"고려대",dept:"심리학부",college:"인문",type:"교과",series:"인문",rate25:6.3,rate26:5.2,g25:1.48,g26:1.38,fill26:216.7,minRate:70.0},
+  {univ:"고려대",dept:"국어교육과",college:"사범",type:"교과",series:"인문",rate25:4.9,rate26:4.5,g25:1.61,g26:1.40,fill26:87.5,minRate:70.0},
+  {univ:"고려대",dept:"국어국문학과",college:"인문",type:"교과",series:"인문",rate25:7.4,rate26:6.1,g25:1.53,g26:1.42,fill26:144.4,minRate:70.0},
+  {univ:"고려대",dept:"영어영문학과",college:"인문",type:"교과",series:"인문",rate25:4.6,rate26:3.4,g25:1.54,g26:1.42,fill26:93.8,minRate:70.0},
+  {univ:"고려대",dept:"통계학과",college:"이과",type:"교과",series:"인문",rate25:6.8,rate26:4.5,g25:1.49,g26:1.43,fill26:121.4,minRate:70.0},
+  {univ:"고려대",dept:"영어교육과",college:"사범",type:"교과",series:"인문",rate25:5.2,rate26:4.2,g25:1.40,g26:1.45,fill26:166.7,minRate:70.0},
+  {univ:"고려대",dept:"역사교육과",college:"사범",type:"교과",series:"인문",rate25:4.4,rate26:3.6,g25:1.51,g26:1.44,fill26:140.0,minRate:70.0},
+  {univ:"고려대",dept:"보건정책관리학부",college:"인문",type:"교과",series:"인문",rate25:10.0,rate26:7.1,g25:1.58,g26:1.40,fill26:41.7,minRate:70.0},
+  {univ:"고려대",dept:"의과대학",college:"의과",type:"교과",series:"의약학",rate25:20.5,rate26:12.9,g25:1.07,g26:1.02,fill26:105.0,minRate:70.0},
+  {univ:"고려대",dept:"바이오시스템의과학부",college:"이과",type:"교과",series:"자연",rate25:8.9,rate26:6.0,g25:1.28,g26:1.17,fill26:190.0,minRate:70.0},
+  {univ:"고려대",dept:"화공생명공학과",college:"공과",type:"교과",series:"자연",rate25:11.7,rate26:6.6,g25:1.28,g26:1.18,fill26:271.4,minRate:70.0},
+  {univ:"고려대",dept:"생명공학부",college:"생명",type:"교과",series:"자연",rate25:8.9,rate26:4.8,g25:1.27,g26:1.21,fill26:194.1,minRate:70.0},
+  {univ:"고려대",dept:"전기전자공학부",college:"공과",type:"교과",series:"자연",rate25:8.0,rate26:5.9,g25:1.34,g26:1.21,fill26:223.5,minRate:70.0},
+  {univ:"고려대",dept:"컴퓨터학과",college:"공과",type:"교과",series:"자연",rate25:8.5,rate26:4.4,g25:1.26,g26:1.25,fill26:219.0,minRate:70.0},
+  {univ:"고려대",dept:"화학과",college:"이과",type:"교과",series:"자연",rate25:18.0,rate26:11.3,g25:1.36,g26:1.25,fill26:328.6,minRate:70.0},
+  {univ:"고려대",dept:"바이오의공학부",college:"공과",type:"교과",series:"자연",rate25:9.5,rate26:9.8,g25:1.41,g26:1.25,fill26:208.3,minRate:70.0},
+  {univ:"고려대",dept:"생명과학부",college:"이과",type:"교과",series:"자연",rate25:10.9,rate26:5.5,g25:1.30,g26:1.26,fill26:213.3,minRate:70.0},
+  {univ:"고려대",dept:"산업경영공학부",college:"공과",type:"교과",series:"자연",rate25:13.5,rate26:7.0,g25:1.39,g26:1.27,fill26:125.0,minRate:70.0},
+  {univ:"고려대",dept:"인공지능학과",college:"공과",type:"교과",series:"자연",rate25:11.3,rate26:4.6,g25:1.37,g26:1.32,fill26:168.8,minRate:70.0},
+  {univ:"고려대",dept:"간호대학",college:"의과",type:"교과",series:"자연",rate25:10.3,rate26:9.8,g25:1.49,g26:1.38,fill26:140.0,minRate:70.0},
+  {univ:"고려대",dept:"기계공학부",college:"공과",type:"교과",series:"자연",rate25:10.2,rate26:8.4,g25:1.44,g26:1.28,fill26:190.5,minRate:70.0},
+  {univ:"고려대",dept:"신소재공학부",college:"공과",type:"교과",series:"자연",rate25:8.6,rate26:11.4,g25:1.43,g26:1.29,fill26:283.3,minRate:70.0},
+  {univ:"성균관대",dept:"자유전공계열",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.65,g26:1.54,fill26:155.0,minRate:69.8},
+  {univ:"성균관대",dept:"사회과학계열",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.50,g26:1.58,fill26:180.0,minRate:69.8},
+  {univ:"성균관대",dept:"통계학과",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.69,g26:1.62,fill26:225.0,minRate:69.8},
+  {univ:"성균관대",dept:"글로벌경영학과",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.51,g26:1.67,fill26:208.3,minRate:69.8},
+  {univ:"성균관대",dept:"글로벌경제학과",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.61,g26:1.62,fill26:500.0,minRate:69.8},
+  {univ:"성균관대",dept:"글로벌리더학부",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.73,g26:1.62,fill26:790.0,minRate:69.8},
+  {univ:"성균관대",dept:"경영학과",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.48,g26:1.74,fill26:550.0,minRate:69.8},
+  {univ:"성균관대",dept:"국어국문학과",college:"",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.81,g26:1.73,fill26:191.7,minRate:69.8},
+  {univ:"성균관대",dept:"배터리학과",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.52,g26:1.36,fill26:260.0,minRate:66.4},
+  {univ:"성균관대",dept:"전자전기공학부",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.52,g26:1.39,fill26:300.0,minRate:66.4},
+  {univ:"성균관대",dept:"생명과학과",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.45,g26:1.41,fill26:100.0,minRate:66.4},
+  {univ:"성균관대",dept:"자연과학계열",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.47,g26:1.44,fill26:440.0,minRate:66.4},
+  {univ:"성균관대",dept:"공학계열",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.50,g26:1.48,fill26:410.0,minRate:66.4},
+  {univ:"성균관대",dept:"화학과",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.56,g26:1.49,fill26:185.7,minRate:66.4},
+  {univ:"성균관대",dept:"반도체융합공학과",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.65,g26:1.51,fill26:390.0,minRate:66.4},
+  {univ:"성균관대",dept:"소프트웨어학과",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.61,g26:1.58,fill26:140.0,minRate:66.4},
+  {univ:"성균관대",dept:"반도체시스템공학과",college:"",type:"종합",series:"자연",rate25:33.2,rate26:25.9,g25:null,g26:null,fill26:760.0,minRate:null},
+  {univ:"성균관대",dept:"지능형소프트웨어학과",college:"",type:"종합",series:"자연",rate25:25.1,rate26:17.9,g25:null,g26:null,fill26:440.0,minRate:null},
+  {univ:"성균관대",dept:"공학계열(탐구형)",college:"",type:"종합",series:"자연",rate25:26.9,rate26:26.3,g25:null,g26:null,fill26:397.0,minRate:null},
+  {univ:"성균관대",dept:"전자전기공학부(탐구형)",college:"",type:"종합",series:"자연",rate25:17.1,rate26:16.4,g25:null,g26:null,fill26:405.0,minRate:null},
+  {univ:"성균관대",dept:"글로벌리더학부(탐구형)",college:"",type:"종합",series:"인문",rate25:19.6,rate26:19.4,g25:null,g26:null,fill26:480.0,minRate:null},
+  {univ:"성균관대",dept:"경영학과(탐구형)",college:"",type:"종합",series:"인문",rate25:15.3,rate26:14.1,g25:null,g26:null,fill26:201.8,minRate:null},
+  {univ:"서강대",dept:"인문학부",college:"인문",type:"교과",series:"인문",rate25:13.58,rate26:13.00,g25:1.66,g26:1.59,fill26:450.0,minRate:80.0},
+  {univ:"서강대",dept:"영문학부",college:"인문",type:"교과",series:"인문",rate25:14.88,rate26:12.40,g25:1.68,g26:1.57,fill26:312.5,minRate:80.0},
+  {univ:"서강대",dept:"사회과학부",college:"사회",type:"교과",series:"인문",rate25:14.56,rate26:12.70,g25:1.68,g26:1.40,fill26:788.9,minRate:80.0},
+  {univ:"서강대",dept:"경제학과",college:"사회",type:"교과",series:"인문",rate25:13.56,rate26:9.50,g25:1.63,g26:1.55,fill26:431.3,minRate:80.0},
+  {univ:"서강대",dept:"경영학부",college:"경영",type:"교과",series:"인문",rate25:15.08,rate26:9.50,g25:1.50,g26:1.60,fill26:551.7,minRate:80.0},
+  {univ:"서강대",dept:"지식융합미디어학부",college:"인문",type:"교과",series:"인문",rate25:16.30,rate26:9.70,g25:1.57,g26:1.65,fill26:500.0,minRate:80.0},
+  {univ:"서강대",dept:"생명과학과",college:"자연",type:"교과",series:"자연",rate25:11.80,rate26:12.40,g25:1.45,g26:1.25,fill26:240.0,minRate:75.5},
+  {univ:"서강대",dept:"전자공학과",college:"공학",type:"교과",series:"자연",rate25:12.70,rate26:10.00,g25:1.46,g26:1.37,fill26:520.0,minRate:75.5},
+  {univ:"서강대",dept:"화공생명공학과",college:"공학",type:"교과",series:"자연",rate25:14.00,rate26:7.60,g25:1.31,g26:1.32,fill26:380.0,minRate:75.5},
+  {univ:"서강대",dept:"기계공학과",college:"공학",type:"교과",series:"자연",rate25:13.75,rate26:9.70,g25:1.49,g26:1.41,fill26:312.5,minRate:75.5},
+  {univ:"서강대",dept:"컴퓨터공학과",college:"공학",type:"교과",series:"자연",rate25:12.30,rate26:8.20,g25:1.44,g26:1.96,fill26:460.0,minRate:75.5},
+  {univ:"서강대",dept:"인공지능학과",college:"공학",type:"교과",series:"자연",rate25:15.00,rate26:10.00,g25:null,g26:1.70,fill26:333.3,minRate:75.5},
+  {univ:"서강대",dept:"시스템반도체공학과",college:"공학",type:"교과",series:"자연",rate25:31.33,rate26:19.40,g25:1.68,g26:null,fill26:466.7,minRate:75.5},
+  {univ:"한양대",dept:"반도체공학과",college:"공학",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.24,g26:1.13,fill26:366.7,minRate:70.1},
+  {univ:"한양대",dept:"생명공학과",college:"생명",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.41,g26:1.33,fill26:400.0,minRate:70.1},
+  {univ:"한양대",dept:"융합전자공학부",college:"공학",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.46,g26:1.34,fill26:235.3,minRate:70.1},
+  {univ:"한양대",dept:"신소재공학부",college:"공학",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.46,g26:1.35,fill26:280.0,minRate:70.1},
+  {univ:"한양대",dept:"기계공학부",college:"공학",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.48,g26:1.39,fill26:258.8,minRate:70.1},
+  {univ:"한양대",dept:"생명과학과",college:"생명",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.47,g26:1.45,fill26:350.0,minRate:70.1},
+  {univ:"한양대",dept:"화학과",college:"자연",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.48,g26:1.45,fill26:300.0,minRate:70.1},
+  {univ:"한양대",dept:"데이터사이언스학부",college:"공학",type:"교과",series:"자연",rate25:null,rate26:null,g25:1.42,g26:1.54,fill26:357.1,minRate:70.1},
+  {univ:"한양대",dept:"경영학부",college:"경영",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.54,g26:1.70,fill26:444.4,minRate:70.1},
+  {univ:"한양대",dept:"경제금융학부",college:"상경",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.63,g26:1.67,fill26:253.9,minRate:70.1},
+  {univ:"한양대",dept:"정치외교학과",college:"사회",type:"교과",series:"인문",rate25:null,rate26:null,g25:1.80,g26:1.70,fill26:275.0,minRate:70.1},
+  {univ:"이화여대",dept:"경영학(교과)",college:"경영",type:"교과",series:"인문",rate25:null,rate26:77.94,g25:1.22,g26:1.47,fill26:416.7,minRate:77.7},
+  {univ:"이화여대",dept:"영어교육(교과)",college:"사범",type:"교과",series:"인문",rate25:null,rate26:6.60,g25:1.20,g26:1.46,fill26:460.0,minRate:77.7},
+  {univ:"이화여대",dept:"화학나노과학(교과)",college:"자연",type:"교과",series:"자연",rate25:null,rate26:8.20,g25:1.28,g26:1.35,fill26:140.0,minRate:77.9},
+  {univ:"이화여대",dept:"화공신소재공학(교과)",college:"공학",type:"교과",series:"자연",rate25:null,rate26:5.69,g25:1.18,g26:1.27,fill26:215.4,minRate:77.9},
+  {univ:"이화여대",dept:"전자전기공학(교과)",college:"공학",type:"교과",series:"자연",rate25:null,rate26:9.31,g25:1.33,g26:1.42,fill26:156.3,minRate:77.9},
+  {univ:"이화여대",dept:"컴퓨터공학(교과)",college:"공학",type:"교과",series:"자연",rate25:null,rate26:9.07,g25:1.41,g26:1.52,fill26:216.7,minRate:77.9},
+  {univ:"이화여대",dept:"의예과(교과)",college:"의과",type:"교과",series:"의약학",rate25:null,rate26:16.67,g25:1.04,g26:1.12,fill26:155.6,minRate:28.0},
+  {univ:"이화여대",dept:"약학전공(교과)",college:"약학",type:"교과",series:"의약학",rate25:null,rate26:45.00,g25:1.18,g26:1.43,fill26:150.0,minRate:28.6},
+  {univ:"이화여대",dept:"의예과(종합)",college:"의과",type:"종합",series:"의약학",rate25:null,rate26:24.89,g25:1.04,g26:1.42,fill26:100.0,minRate:null},
+  {univ:"경희대",dept:"무전공(서울/국제)",college:"자유",type:"교과",series:"인문",rate25:null,rate26:7.4,g25:null,g26:null,fill26:110.7,minRate:68.6},
+  {univ:"경희대",dept:"인문계열",college:"",type:"교과",series:"인문",rate25:null,rate26:7.7,g25:null,g26:null,fill26:103.6,minRate:66.0},
+  {univ:"경희대",dept:"자연계열",college:"",type:"교과",series:"자연",rate25:null,rate26:8.2,g25:null,g26:null,fill26:53.6,minRate:68.2},
+  {univ:"경희대",dept:"의·약학계열",college:"의약",type:"교과",series:"의약학",rate25:null,rate26:13.4,g25:null,g26:null,fill26:30.4,minRate:42.2},
+  {univ:"경희대",dept:"인문(종합)",college:"",type:"종합",series:"인문",rate25:null,rate26:7.7,g25:null,g26:null,fill26:103.6,minRate:null},
+  {univ:"한국외대",dept:"영어교육과(서울)",college:"사범",type:"교과",series:"인문",rate25:10.0,rate26:6.8,g25:null,g26:null,fill26:425.0,minRate:93.7},
+  {univ:"한국외대",dept:"영어통번역학과",college:"통번역",type:"교과",series:"인문",rate25:null,rate26:null,g25:null,g26:null,fill26:250.0,minRate:93.7},
+  {univ:"한국외대",dept:"미디어커뮤니케이션학부",college:"인문",type:"교과",series:"인문",rate25:null,rate26:null,g25:null,g26:null,fill26:167.0,minRate:93.7},
+  {univ:"한국외대",dept:"바이오메디컬공학부",college:"",type:"교과",series:"자연",rate25:null,rate26:null,g25:null,g26:null,fill26:250.0,minRate:75.5},
+  {univ:"건국대",dept:"문과대학",college:"인문",type:"교과",series:"인문",rate25:7.7,rate26:9.2,g25:2.2,g26:2.1,fill26:259.4,minRate:68.2},
+  {univ:"건국대",dept:"사회과학대학",college:"사회",type:"교과",series:"인문",rate25:7.9,rate26:8.4,g25:2.0,g26:2.0,fill26:247.8,minRate:64.6},
+  {univ:"건국대",dept:"경영대학",college:"경영",type:"교과",series:"인문",rate25:12.5,rate26:8.3,g25:1.9,g26:1.8,fill26:416.7,minRate:64.1},
+  {univ:"건국대",dept:"이과대학",college:"자연",type:"교과",series:"자연",rate25:11.4,rate26:11.1,g25:1.9,g26:1.9,fill26:251.7,minRate:63.6},
+  {univ:"건국대",dept:"간호대학",college:"간호",type:"교과",series:"자연",rate25:15.9,rate26:15.3,g25:2.0,g26:1.9,fill26:362.5,minRate:63.8},
+  {univ:"건국대",dept:"공과대학",college:"공학",type:"교과",series:"자연",rate25:11.9,rate26:10.5,g25:1.8,g26:1.8,fill26:186.8,minRate:58.5},
+  {univ:"건국대",dept:"생명과학대학",college:"생명",type:"교과",series:"자연",rate25:11.4,rate26:14.3,g25:1.8,g26:1.7,fill26:188.7,minRate:55.5},
+  {univ:"건국대",dept:"수의과대학",college:"수의",type:"교과",series:"자연",rate25:16.6,rate26:11.0,g25:1.1,g26:1.1,fill26:100.0,minRate:54.2},
+  {univ:"건국대",dept:"KU자기추천(인문)",college:"",type:"종합",series:"인문",rate25:21.3,rate26:null,g25:null,g26:null,fill26:57.2,minRate:null},
+  {univ:"건국대",dept:"논술(인문)",college:"",type:"논술",series:"인문",rate25:67.4,rate26:null,g25:null,g26:null,fill26:20.4,minRate:63.9},
+  {univ:"건국대",dept:"논술(자연)",college:"",type:"논술",series:"자연",rate25:67.4,rate26:null,g25:null,g26:null,fill26:20.4,minRate:63.9},
+];
+
+// ─── 차트 팔레트 ───
+const PALETTE = ['#3b82f6','#f0c040','#10b981','#f97316','#a855f7','#ef4444'];
+
+// ─── 필터 상태 ───
+const FILTERS = {
+  univ:  {field:'univ', selected:new Set(), allLabel:'전체 대학'},
+  type:  {field:'type', selected:new Set(), allLabel:'전체 전형'},
+  series:{field:'series',selected:new Set(),allLabel:'전체 계열'},
+};
+const UCOL = {'고려대':'#fca5a5','성균관대':'#a5f3fc','서강대':'#bfdbfe','한양대':'#fed7aa','이화여대':'#d8b4fe','경희대':'#a7f3d0','한국외대':'#fde68a','건국대':'#d1d5db'};
+const SCOL = {'인문':'#93c5fd','자연':'#a7f3d0','의약학':'#fca5a5'};
+const TCOL = {'교과':'#93c5fd','종합':'#5eead4','논술':'#f0c040'};
+
+let filtered=[...DB], sortKey='grade', sortAsc=true, page=1, PS=20;
+let favorites=[]; // max 6
+let charts={};
+let activeTab=0;
+
+// ─── 매뉴얼 토글 ───
+function toggleManual(){
+  const body=document.getElementById('manual-body');
+  const tog=document.getElementById('manual-toggle');
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  tog.classList.toggle('open',!open);
+  tog.querySelector('span:first-child').textContent=open?'펼치기':'접기';
+}
+
+// ─── 즐겨찾기 ───
+function favKey(r){return r.univ+'|'+r.dept+'|'+r.type;}
+
+function toggleFav(key){
+  const idx=favorites.findIndex(f=>f===key);
+  if(idx>=0){
+    favorites.splice(idx,1);
+  } else {
+    if(favorites.length>=6){
+      showToast('⚠️ 즐겨찾기는 최대 6개까지 가능합니다');
+      return;
+    }
+    favorites.push(key);
+    showToast('⭐ 즐겨찾기에 추가되었습니다');
+  }
+  renderFavBar();
+  render();
+}
+
+function isFav(r){return favorites.includes(favKey(r));}
+
+function clearFavs(){favorites=[];renderFavBar();render();}
+
+function renderFavBar(){
+  const bar=document.getElementById('fav-bar');
+  const chips=document.getElementById('fav-chips');
+  const cnt=document.getElementById('fav-count');
+  cnt.textContent=`(${favorites.length}/6)`;
+  if(!favorites.length){bar.classList.remove('visible');return;}
+  bar.classList.add('visible');
+  chips.innerHTML=favorites.map(key=>{
+    const r=DB.find(d=>favKey(d)===key);
+    if(!r) return '';
+    const col=PALETTE[favorites.indexOf(key)%6];
+    return `<div class="fav-chip">
+      <div class="fav-dot" style="background:${col}"></div>
+      <span class="fav-name" title="${r.univ} ${r.dept}">${r.univ} ${r.dept}</span>
+      <span class="fav-rm" onclick="toggleFav('${key}')">✕</span>
+    </div>`;
+  }).join('');
+}
+
+function showToast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:24px;right:24px;background:#1e2d47;border:1px solid #253550;color:#cdd8f0;padding:10px 18px;font-size:13px;font-family:Noto Sans KR,sans-serif;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:opacity .3s;border-radius:2px;';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._to);t._to=setTimeout(()=>t.style.opacity='0',2200);
+}
+
+// ─── 드롭다운 ───
+function initDropdowns(){
+  const univs=[...new Set(DB.map(r=>r.univ))];
+  buildXF('univ',univs,UCOL);
+  buildXF('type',['교과','종합','논술'],TCOL);
+  buildXF('series',['인문','자연','의약학'],SCOL);
+}
+function buildXF(key,items,cmap){
+  document.getElementById('xfl-'+key).innerHTML=items.map(v=>`
+    <div class="xfi" id="xfi-${key}-${CSS.escape(v)}" onclick="xfToggle('${key}','${v}')">
+      <div class="xfck"></div>
+      ${cmap?`<div class="xfd" style="background:${cmap[v]||'#4f6a8f'}"></div>`:''}
+      <span>${v}</span>
+    </div>`).join('');
+}
+function xfFilter(key,q){
+  document.querySelectorAll(`#xfl-${key} .xfi`).forEach(el=>{
+    el.style.display=el.querySelector('span').textContent.toLowerCase().includes(q.toLowerCase())?'':'none';
+  });
+}
+function xfToggle(key,val){
+  const f=FILTERS[key];
+  f.selected.has(val)?f.selected.delete(val):f.selected.add(val);
+  const el=document.getElementById(`xfi-${key}-${CSS.escape(val)}`);
+  if(el) el.classList.toggle('checked',f.selected.has(val));
+  updateXFLabel(key);
+}
+function xfAll(key){
+  document.querySelectorAll(`#xfl-${key} .xfi`).forEach(el=>{
+    if(el.style.display==='none') return;
+    const v=el.querySelector('span').textContent;
+    FILTERS[key].selected.add(v); el.classList.add('checked');
+  });
+  updateXFLabel(key);
+}
+function xfClear(key){
+  FILTERS[key].selected.clear();
+  document.querySelectorAll(`#xfl-${key} .xfi`).forEach(el=>el.classList.remove('checked'));
+  updateXFLabel(key);
+}
+function updateXFLabel(key){
+  const f=FILTERS[key],n=f.selected.size;
+  const trig=document.getElementById('xft-'+key);
+  document.getElementById('xlbl-'+key).textContent=n===0?f.allLabel:n===1?[...f.selected][0]:[...f.selected][0]+' 외 '+(n-1);
+  let bdg=trig.querySelector('.xb');
+  if(n===0){if(bdg)bdg.remove();}
+  else{if(!bdg){bdg=document.createElement('span');bdg.className='xb';trig.insertBefore(bdg,trig.querySelector('.xa'));}bdg.textContent=n;}
+}
+function xfApply(key){closeXF();doSearch();}
+function toggleXF(key){
+  const p=document.getElementById('xfp-'+key);
+  const t=document.getElementById('xft-'+key);
+  const wasOpen=p.classList.contains('open');
+  closeXF();
+  if(!wasOpen){p.classList.add('open');t.classList.add('open');const i=document.getElementById('xfi-'+key);if(i){i.value='';xfFilter(key,'');}}
+}
+function closeXF(){document.querySelectorAll('.xfp').forEach(p=>p.classList.remove('open'));document.querySelectorAll('.xft').forEach(t=>t.classList.remove('open'));}
+document.addEventListener('click',e=>{if(!e.target.closest('.xfw'))closeXF();});
+
+// ─── 검색 ───
+function doSearch(){
+  const kw=document.getElementById('inp-kw').value.trim().toLowerCase();
+  const gMin=parseFloat(document.getElementById('inp-gmin').value);
+  const gMax=parseFloat(document.getElementById('inp-gmax').value);
+  const fMin=parseFloat(document.getElementById('inp-fmin').value);
+  const rMax=parseFloat(document.getElementById('inp-rmax').value);
+  filtered=DB.filter(r=>{
+    if(FILTERS.univ.selected.size&&!FILTERS.univ.selected.has(r.univ)) return false;
+    if(FILTERS.type.selected.size&&!FILTERS.type.selected.has(r.type)) return false;
+    if(FILTERS.series.selected.size&&!FILTERS.series.selected.has(r.series)) return false;
+    if(kw&&!r.dept.toLowerCase().includes(kw)&&!r.univ.toLowerCase().includes(kw)) return false;
+    if(!isNaN(gMin)&&r.g26!==null&&r.g26<gMin) return false;
+    if(!isNaN(gMax)&&r.g26!==null&&r.g26>gMax) return false;
+    if(!isNaN(fMin)&&r.fill26<fMin) return false;
+    if(!isNaN(rMax)&&r.rate26!==null&&r.rate26>rMax) return false;
+    return true;
+  });
+  applySort();page=1;updateStats();renderTags();render();
+}
+function resetAll(){
+  ['univ','type','series'].forEach(k=>{FILTERS[k].selected.clear();document.querySelectorAll(`#xfl-${k} .xfi`).forEach(el=>el.classList.remove('checked'));updateXFLabel(k);});
+  ['inp-kw','inp-gmin','inp-gmax','inp-fmin','inp-rmax'].forEach(id=>document.getElementById(id).value='');
+  doSearch();
+}
+
+// ─── 태그 ───
+function renderTags(){
+  const area=document.getElementById('aft');let tags='';let any=false;
+  ['univ','type','series'].forEach(k=>{FILTERS[k].selected.forEach(v=>{any=true;tags+=`<span class="atag">${v}<span class="ax" onclick="rmTag('${k}','${v}')">✕</span></span>`;});});
+  const kw=document.getElementById('inp-kw').value.trim();
+  if(kw){any=true;tags+=`<span class="atag">🔤 "${kw}"<span class="ax" onclick="document.getElementById('inp-kw').value='';doSearch()">✕</span></span>`;}
+  const gn=document.getElementById('inp-gmin').value,gx=document.getElementById('inp-gmax').value;
+  if(gn||gx){any=true;tags+=`<span class="atag">등급 ${gn||'—'}~${gx||'—'}<span class="ax" onclick="document.getElementById('inp-gmin').value='';document.getElementById('inp-gmax').value='';doSearch()">✕</span></span>`;}
+  const fn=document.getElementById('inp-fmin').value;
+  if(fn){any=true;tags+=`<span class="atag">충원율≥${fn}%<span class="ax" onclick="document.getElementById('inp-fmin').value='';doSearch()">✕</span></span>`;}
+  const rx=document.getElementById('inp-rmax').value;
+  if(rx){any=true;tags+=`<span class="atag">경쟁률≤${rx}<span class="ax" onclick="document.getElementById('inp-rmax').value='';doSearch()">✕</span></span>`;}
+  if(any) tags=`<span class="aft-lbl">필터:</span>`+tags+`<span class="aclr" onclick="resetAll()">전체 초기화</span>`;
+  area.innerHTML=tags;
+}
+function rmTag(k,v){FILTERS[k].selected.delete(v);const el=document.getElementById(`xfi-${k}-${CSS.escape(v)}`);if(el)el.classList.remove('checked');updateXFLabel(k);doSearch();}
+
+// ─── 정렬 ───
+function setSort(k){
+  if(sortKey===k)sortAsc=!sortAsc;else{sortKey=k;sortAsc=true;}
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  const m={univ:'st-univ',grade:'st-grade',fill:'st-fill',rate:'st-rate'};
+  if(m[k])document.getElementById(m[k]).classList.add('active');
+  applySort();render();
+}
+function applySort(){
+  const d=sortAsc?1:-1;
+  filtered.sort((a,b)=>{
+    switch(sortKey){
+      case 'univ': return d*a.univ.localeCompare(b.univ,'ko');
+      case 'dept': return d*a.dept.localeCompare(b.dept,'ko');
+      case 'grade': return d*((a.g26??99)-(b.g26??99));
+      case 'fill':  return -d*((a.fill26??0)-(b.fill26??0));
+      case 'rate':  return -d*((a.rate26??0)-(b.rate26??0));
+      default: return 0;
+    }
+  });
+}
+
+// ─── 통계 ───
+function updateStats(){
+  document.getElementById('stn').textContent=filtered.length;
+  const gs=filtered.map(r=>r.g26).filter(Boolean);
+  document.getElementById('stg').textContent=gs.length?(gs.reduce((a,b)=>a+b,0)/gs.length).toFixed(2)+'등급':'—';
+  const fs=filtered.map(r=>r.fill26).filter(Boolean);
+  document.getElementById('stf').textContent=fs.length?Math.round(fs.reduce((a,b)=>a+b,0)/fs.length)+'%':'—';
+  const rs=filtered.map(r=>r.rate26).filter(Boolean);
+  document.getElementById('str').textContent=rs.length?(rs.reduce((a,b)=>a+b,0)/rs.length).toFixed(1)+':1':'—';
+}
+
+// ─── 렌더링 ───
+function render(){
+  const tbody=document.getElementById('tbody');
+  document.getElementById('cnt').textContent=filtered.length;
+  if(!filtered.length){
+    tbody.innerHTML=`<tr><td colspan="11"><div class="es"><div class="ei">🔍</div><div class="et">검색 조건에 맞는 학과가 없습니다.</div></div></td></tr>`;
+    document.getElementById('pg').innerHTML='';return;
+  }
+  const kw=document.getElementById('inp-kw').value.trim().toLowerCase();
+  const slice=filtered.slice((page-1)*PS,page*PS);
+  tbody.innerHTML=slice.map(r=>{
+    const gc=!r.g26?'':r.g26<1.1?'g1':r.g26<1.3?'g1x':r.g26<1.5?'g1y':r.g26<1.8?'g2':r.g26<2.2?'g2x':r.g26<2.8?'g3':'g4';
+    const fc=r.fill26>300?'fh':r.fill26>150?'fm':'fl';
+    let tr='';
+    if(r.g25&&r.g26){const dv=r.g26-r.g25;tr=dv<-.05?'<span class="ta tu">▼</span>':dv>.05?'<span class="ta td2">▲</span>':'<span class="ta ts">—</span>';}
+    const bw=r.g26?Math.min(100,Math.round((r.g26-1)/2*100)):0;
+    const bc=!r.g26?'#4f6a8f':r.g26<1.3?'#ff4757':r.g26<1.6?'#ffa502':r.g26<2.0?'#f0c040':'#74b9ff';
+    const dt=kw?r.dept.replace(new RegExp(`(${kw})`,'gi'),'<mark>$1</mark>'):r.dept;
+    const faved=isFav(r);
+    const fk=favKey(r).replace(/'/g,"\\'");
+    const favIdx=favorites.indexOf(favKey(r));
+    const dotStyle=favIdx>=0?`style="color:${PALETTE[favIdx]}"`:''
+    return `<tr>
+      <td><button class="fav-ico" onclick="toggleFav('${fk}')" title="${faved?'즐겨찾기 해제':'즐겨찾기 추가'}" ${dotStyle}>${faved?'⭐':'☆'}</button></td>
+      <td class="td-univ"><span class="ubdg u${r.univ}">${r.univ}</span></td>
+      <td class="td-dept">${dt}${r.college?`<span class="dcol">${r.college}</span>`:''}</td>
+      <td><span class="ttag t${r.type}">${r.type}</span></td>
+      <td style="color:var(--gray1);font-size:11px">${r.series}</td>
+      <td class="tnum" style="color:var(--gray2)">${r.rate25?r.rate25.toFixed(1):'—'}</td>
+      <td class="tnum">${r.rate26?r.rate26.toFixed(1):'—'}</td>
+      <td class="tnum" style="color:var(--gray2)">${r.g25?r.g25.toFixed(2):'—'}</td>
+      <td class="tnum"><div class="gbar"><div class="btr"><div class="bfill" style="width:${bw}%;background:${bc}"></div></div><span class="${gc}">${r.g26?r.g26.toFixed(2):'—'}${tr}</span></div></td>
+      <td class="tnum ${fc}">${r.fill26?r.fill26.toFixed(1)+'%':'—'}</td>
+      <td style="font-size:10px;color:var(--gray1)">${r.minRate?r.minRate+'%':'—'}</td>
+    </tr>`;
+  }).join('');
+  renderPg();
+}
+function renderPg(){
+  const tot=Math.ceil(filtered.length/PS),pg=document.getElementById('pg');
+  if(tot<=1){pg.innerHTML='';return;}
+  let h='';
+  if(page>1)h+=`<button class="pb" onclick="goP(${page-1})">‹</button>`;
+  for(let i=1;i<=tot;i++){
+    if(i===page||Math.abs(i-page)<=2||i===1||i===tot)h+=`<button class="pb ${i===page?'active':''}" onclick="goP(${i})">${i}</button>`;
+    else if(Math.abs(i-page)===3)h+=`<span style="color:var(--gray2);padding:0 3px;line-height:32px">…</span>`;
+  }
+  if(page<tot)h+=`<button class="pb" onclick="goP(${page+1})">›</button>`;
+  pg.innerHTML=h;
+}
+function goP(p){page=p;render();window.scrollTo({top:document.querySelector('.rh').offsetTop-80,behavior:'smooth'});}
+
+// ─── 실시간 ───
+document.getElementById('inp-kw').addEventListener('input',doSearch);
+['inp-gmin','inp-gmax','inp-fmin','inp-rmax'].forEach(id=>document.getElementById(id).addEventListener('input',doSearch));
+
+// ═══════════════════════════════════════════════════════
+// 차트 모달
+// ═══════════════════════════════════════════════════════
+function openChartModal(){
+  if(!favorites.length){showToast('⭐ 먼저 테이블에서 학과를 즐겨찾기에 추가하세요');return;}
+  document.getElementById('chart-modal').classList.add('open');
+  setTimeout(()=>buildCharts(),50);
+}
+function closeChartModal(){
+  document.getElementById('chart-modal').classList.remove('open');
+  Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});
+  charts={};
+}
+function closeModalOutside(e){if(e.target===document.getElementById('chart-modal'))closeChartModal();}
+
+function switchTab(n){
+  activeTab=n;
+  document.querySelectorAll('.m-tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  document.querySelectorAll('.chart-section').forEach((s,i)=>s.classList.toggle('active',i===n));
+}
+
+function getFavData(){
+  return favorites.map((key,i)=>{
+    const r=DB.find(d=>favKey(d)===key);
+    return r?{...r,color:PALETTE[i]}:null;
+  }).filter(Boolean);
+}
+
+function buildCharts(){
+  const data=getFavData();
+  if(!data.length) return;
+  const labels=data.map(r=>`${r.univ}\n${r.dept.length>10?r.dept.slice(0,10)+'…':r.dept}`);
+
+  Object.values(charts).forEach(c=>{try{c.destroy();}catch(e){}});
+  charts={};
+
+  const baseOpts={
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,18,40,.95)',titleFont:{family:'Noto Sans KR',size:12},bodyFont:{family:'DM Mono',size:12},padding:10,borderColor:'#253550',borderWidth:1}},
+    scales:{x:{ticks:{color:'#8ba3c7',font:{family:'Noto Sans KR',size:11},maxRotation:20},grid:{color:'rgba(30,45,71,.5)'}},y:{ticks:{color:'#8ba3c7',font:{family:'DM Mono',size:11}},grid:{color:'rgba(30,45,71,.4)'}}}
+  };
+
+  // 1. 등급 차트 (그룹 바)
+  const gCtx=document.getElementById('chart-grade').getContext('2d');
+  charts.grade=new Chart(gCtx,{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:"'25 70%컷",data:data.map(r=>r.g25||null),backgroundColor:data.map(r=>r.color+'55'),borderColor:data.map(r=>r.color),borderWidth:1.5,borderRadius:2},
+        {label:"'26 70%컷",data:data.map(r=>r.g26||null),backgroundColor:data.map(r=>r.color+'cc'),borderColor:data.map(r=>r.color),borderWidth:2,borderRadius:3},
+      ]
+    },
+    options:{...baseOpts,plugins:{...baseOpts.plugins,tooltip:{...baseOpts.plugins.tooltip,callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'—'}등급`}}},scales:{...baseOpts.scales,y:{...baseOpts.scales.y,reverse:true,min:1,max:2.5,title:{display:true,text:'등급 (낮을수록 우수)',color:'#4f6a8f',font:{size:10}}}}}
+  });
+  buildLegend('cl0',data);
+
+  // 2. 충원율 차트 (가로 바)
+  const fCtx=document.getElementById('chart-fill').getContext('2d');
+  charts.fill=new Chart(fCtx,{
+    type:'bar',
+    data:{labels,datasets:[{label:'충원율 (%)',data:data.map(r=>r.fill26||null),backgroundColor:data.map(r=>r.color+'bb'),borderColor:data.map(r=>r.color),borderWidth:2,borderRadius:3}]},
+    options:{...baseOpts,indexAxis:'y',plugins:{...baseOpts.plugins,tooltip:{...baseOpts.plugins.tooltip,callbacks:{label:ctx=>`충원율: ${ctx.parsed.x?.toFixed(1)??'—'}%`}}},scales:{y:{ticks:{color:'#8ba3c7',font:{family:'Noto Sans KR',size:10}},grid:{color:'rgba(30,45,71,.4)'}},x:{ticks:{color:'#8ba3c7',font:{family:'DM Mono',size:11}},grid:{color:'rgba(30,45,71,.4)'},title:{display:true,text:'충원율 (%)',color:'#4f6a8f',font:{size:10}}}}}
+  });
+  buildLegend('cl1',data);
+
+  // 3. 경쟁률 차트
+  const rCtx=document.getElementById('chart-rate').getContext('2d');
+  charts.rate=new Chart(rCtx,{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:"'25 경쟁률",data:data.map(r=>r.rate25||null),backgroundColor:data.map(r=>r.color+'44'),borderColor:data.map(r=>r.color),borderWidth:1.5,borderRadius:2},
+        {label:"'26 경쟁률",data:data.map(r=>r.rate26||null),backgroundColor:data.map(r=>r.color+'cc'),borderColor:data.map(r=>r.color),borderWidth:2,borderRadius:3},
+      ]
+    },
+    options:{...baseOpts,plugins:{...baseOpts.plugins,tooltip:{...baseOpts.plugins.tooltip,callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'—'}:1`}}}}
+  });
+  buildLegend('cl2',data);
+
+  // 4. 레이더 차트 (정규화)
+  const rdrCtx=document.getElementById('chart-radar').getContext('2d');
+  // 정규화: 등급은 반전(낮을수록 좋음), fill·rate는 높을수록 좋음
+  const allG=data.map(r=>r.g26).filter(Boolean);
+  const allF=data.map(r=>r.fill26).filter(Boolean);
+  const allR=data.map(r=>r.rate26).filter(Boolean);
+  const norm=(v,arr,invert=false)=>{
+    if(v==null||!arr.length) return 50;
+    const mn=Math.min(...arr),mx=Math.max(...arr);
+    const n=mx===mn?50:((v-mn)/(mx-mn))*100;
+    return invert?100-n:n;
+  };
+  charts.radar=new Chart(rdrCtx,{
+    type:'radar',
+    data:{
+      labels:["합격선 우수도\n(낮은 등급)","충원율\n(추합 기회)","경쟁률 우위\n(낮은 경쟁)","수능최저충족률"],
+      datasets:data.map(r=>({
+        label:`${r.univ} ${r.dept}`,
+        data:[
+          norm(r.g26,allG,true),
+          norm(r.fill26,allF,false),
+          r.rate26?100-norm(r.rate26,allR,false):50,
+          r.minRate?norm(r.minRate,[...data.map(d=>d.minRate).filter(Boolean)],false):50,
+        ],
+        backgroundColor:r.color+'25',
+        borderColor:r.color,
+        borderWidth:2,
+        pointBackgroundColor:r.color,
+        pointRadius:4,
+      }))
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,18,40,.95)',titleFont:{family:'Noto Sans KR',size:11},bodyFont:{family:'DM Mono',size:11},padding:10,borderColor:'#253550',borderWidth:1}},
+      scales:{r:{ticks:{display:false},grid:{color:'rgba(30,45,71,.6)'},pointLabels:{color:'#8ba3c7',font:{family:'Noto Sans KR',size:11}},angleLines:{color:'rgba(30,45,71,.6)'},suggestedMin:0,suggestedMax:100}}
+    }
+  });
+  buildLegend('cl3',data);
+}
+
+function buildLegend(id,data){
+  document.getElementById(id).innerHTML=data.map(r=>`
+    <div class="cl-item"><div class="cl-dot" style="background:${r.color}"></div>${r.univ} ${r.dept} <span style="color:var(--gray2);margin-left:3px;">[${r.type}]</span></div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// 내보내기 (이미지 / PDF)
+// ═══════════════════════════════════════════════════════
+
+// 현재 테이블+통계 고해상도 이미지 저장
+async function exportImage(){
+  showToast('🖼 이미지 생성 중...');
+  try{
+    const el=document.querySelector('.wrap');
+    const canvas=await html2canvas(el,{
+      scale:2,
+      backgroundColor:'#05080f',
+      useCORS:true,
+      logging:false,
+      windowWidth:1360,
+    });
+    const link=document.createElement('a');
+    link.download='2026_수시입결_검색기.png';
+    link.href=canvas.toDataURL('image/png',1.0);
+    link.click();
+    showToast('✅ PNG 저장 완료!');
+  }catch(e){showToast('❌ 저장 실패: '+e.message);}
+}
+
+// PDF 저장
+async function exportPDF(){
+  showToast('📄 PDF 생성 중...');
+  try{
+    const el=document.querySelector('.wrap');
+    const canvas=await html2canvas(el,{scale:1.8,backgroundColor:'#05080f',useCORS:true,logging:false,windowWidth:1360});
+    const imgData=canvas.toDataURL('image/jpeg',0.92);
+    const w=canvas.width,h=canvas.height;
+    // A4 비율로 분할 출력 (jsPDF 없이 print dialog 활용)
+    const printWin=window.open('','_blank','width=900,height=700');
+    printWin.document.write(`<!DOCTYPE html><html><head><title>2026 수시 입결 검색기</title>
+    <style>*{margin:0;padding:0;}body{background:#fff;}img{width:100%;display:block;}@media print{@page{size:A3 landscape;margin:8mm;}img{width:100%;page-break-inside:avoid;}}</style></head>
+    <body><img src="${imgData}"/></body></html>`);
+    printWin.document.close();
+    setTimeout(()=>{printWin.focus();printWin.print();},600);
+    showToast('✅ PDF 인쇄 창 열림! (저장 선택)');
+  }catch(e){showToast('❌ PDF 실패: '+e.message);}
+}
+
+// 차트 이미지 저장
+async function exportChartImage(){
+  showToast('🖼 차트 이미지 생성 중...');
+  try{
+    const el=document.getElementById('modal-inner');
+    const canvas=await html2canvas(el,{scale:2.5,backgroundColor:'#0c1220',useCORS:true,logging:false});
+    const link=document.createElement('a');
+    link.download='2026_수시입결_비교차트.png';
+    link.href=canvas.toDataURL('image/png',1.0);
+    link.click();
+    showToast('✅ 차트 PNG 저장 완료!');
+  }catch(e){showToast('❌ 저장 실패: '+e.message);}
+}
+
+async function exportChartPDF(){
+  showToast('📄 차트 PDF 생성 중...');
+  try{
+    const el=document.getElementById('modal-inner');
+    const canvas=await html2canvas(el,{scale:2,backgroundColor:'#0c1220',useCORS:true,logging:false});
+    const imgData=canvas.toDataURL('image/jpeg',0.92);
+    const printWin=window.open('','_blank','width=900,height=700');
+    printWin.document.write(`<!DOCTYPE html><html><head><title>입결 비교차트</title>
+    <style>*{margin:0;padding:0;}body{background:#fff;}img{width:100%;}@media print{@page{size:A4 landscape;margin:10mm;}}</style></head>
+    <body><img src="${imgData}"/></body></html>`);
+    printWin.document.close();
+    setTimeout(()=>{printWin.focus();printWin.print();},600);
+    showToast('✅ PDF 인쇄 창 열림!');
+  }catch(e){showToast('❌ PDF 실패: '+e.message);}
+}
+
+// ─── 초기화 ───
+initDropdowns();
+doSearch();
+</script>
+</body>
+</html>
